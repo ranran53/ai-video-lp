@@ -1,73 +1,57 @@
 # Codexスマホ入門LP
 
-スマホだけでCodexをやさしく始めるための、初心者向けランディングページです。  
-`images/design-reference.png` の完成見本を基準に、不思議の国のアリス風・絵本風の縦長1枚LPとして読める見た目に寄せています。
+スマホだけでCodexをやさしく始めるための、初心者向けランディングページです。
 
-## 今回のLP構成
+## LPの表示方針
 
-PCでもスマホ用LPとして見えるように、ページ全体の最大幅は `430px` に固定し、PCでは中央寄せにしています。スマホでは横幅いっぱいで表示されます。
+このLPは、完成デザインである `images/design-reference.png` をメイン画像として1枚で表示しています。  
+HTML/CSSで各セクションを再構成したり、分解画像を並べたりせず、完成画像を上から下まで見切れないように表示する構成です。
 
-1. **ファーストビュー**
-   - `images/hero.png` を大きく配置。
-   - 画像内のCTA位置に、本物のリンクボタン「Codex入門を見る」を重ねています。
-2. **Codexでできること**
-   - `images/feature-smartphone.png`
-   - `images/feature-guide.png`
-   - `images/feature-post.png`
-   - `images/feature-lp.png`
-   - 上記4枚を2列グリッドで大きめに表示し、HTML側の説明文は追加していません。
-3. **悩みセクション**
-   - `images/worry-section.png` を青背景の横長パネルとして大きく表示。
-   - 画像と同じ悩みリストをHTMLで重複表示しない構成です。
-4. **詳細のできること**
-   - `images/detail-features.png` を横幅いっぱいのパネルとして表示。
-   - 余計なタグ・ボタン・説明カードは追加していません。
-5. **4ステップ**
-   - `images/steps.png` を横幅いっぱいに表示。
-   - ステップ文言は画像内にあるため、HTML側でリストを重複表示していません。
-6. **最後のCTA**
-   - `images/final-cta.png` を横長CTAとして表示。
-   - 画像内のCTA位置に、本物のリンクボタン「Codex入門を見る」を重ねています。
-   - `images/character-main.png` は完成見本の世界観を補う薄い装飾として、最後のCTA付近に小さく配置しています。
+- LP本体画像: `images/design-reference.png`
+- PC表示: 最大幅 `430px` のスマホLPとして中央寄せ
+- スマホ表示: 画面幅いっぱいに表示
+- 画像は `width: 100%; height: auto; display: block;` で表示
+- 高さ固定、トリミング、`object-fit: cover`、`overflow: hidden` は使用していません
 
-## ファイル構成
+## CTAリンクについて
 
-```txt
-index.html
-style.css
-script.js
-images/
-  design-reference.png
-  hero.png
-  character-main.png
-  feature-smartphone.png
-  feature-guide.png
-  feature-post.png
-  feature-lp.png
-  worry-section.png
-  detail-features.png
-  steps.png
-  final-cta.png
+CTAは画像上のボタンに、透明リンクを重ねてクリック可能にしています。
+
+- 1つ目: ファーストビュー内の「Codex入門を見る」ボタン上
+- 2つ目: 最下部の「Codex入門を見る」ボタン上
+
+CTAリンク先を変更する場所は `index.html` 内の透明リンクです。  
+`href="#"` を本番URLへ変更してください。該当箇所には `ここを本番URLに変更` というコメントを入れています。
+
+```html
+<!-- ここを本番URLに変更 -->
+<a class="lp-cta-link lp-cta-link--first" href="#" aria-label="Codex入門を見る"></a>
 ```
 
-## 画像の使い方
+## 画像を差し替える場合
 
-- `images/design-reference.png` は完成見本です。LPには直接表示せず、余白・角丸・色・セクション順・画像サイズ感の基準として使います。
-- 各素材画像は小さなサムネイルではなく、スマホ幅で読みやすい大きさにしています。
-- 横長セクション画像は、素材内の上下余白が大きいため、`style.css` の `.crop-frame` 系クラスで完成見本に近い横長パネルとして見えるようにトリミング表示しています。
-- 画像内に含まれる文章をHTMLで繰り返さないようにし、HTMLテキストはCTAリンクとアクセシビリティ用の `alt` を中心にしています。
+LP画像を差し替える場合は、`images/design-reference.png` を同じ名前で置き換えてください。  
+画像サイズやボタン位置が変わる場合は、`style.css` の以下のクラスにある `top` / `left` / `width` / `height` のパーセント指定を、新しい画像内のCTA位置に合わせて調整してください。
 
-## CTAリンクの変更方法
+- `.lp-cta-link--first`
+- `.lp-cta-link--final`
 
-CTAボタンのリンクは、`script.js` の先頭にある `CTA_LINK` を変更してください。
+## 使用していない画像について
 
-```js
-const CTA_LINK = "https://note.com/";
-```
+以下の画像は `images` フォルダに残っていますが、LP表示には使用していません。
 
-JavaScriptが読み込めない環境でもリンクとして動くように、`index.html` 側の `href` にも仮のURLを入れています。公開前に必要であれば、`index.html` の `data-cta-link` が付いたリンクの `href` も同じURLへ変更してください。
+- `images/hero.png`
+- `images/character-main.png`
+- `images/feature-smartphone.png`
+- `images/feature-guide.png`
+- `images/feature-post.png`
+- `images/feature-lp.png`
+- `images/worry-section.png`
+- `images/detail-features.png`
+- `images/steps.png`
+- `images/final-cta.png`
 
-## スマホ確認方法
+## ローカル確認方法
 
 1. ローカルサーバーを起動します。
 
@@ -78,17 +62,11 @@ python3 -m http.server 8000
 2. ブラウザで `http://localhost:8000/` を開きます。
 3. Chrome DevTools のデバイスツールバーで幅を `390px` にします。
 4. 次の点を確認してください。
-   - `images/design-reference.png` のような縦長1枚LP感があるか
-   - 画像が小さすぎず、素材内の文字が読めるか
-   - セクション間の余白が広すぎないか
-   - CTAボタンが指で押しやすい大きさか
-   - 最後のCTAが画面下で見切れていないか
-   - 絵本風・アリス風の淡いクリーム、ブルー、くすみピンクの世界観が保たれているか
-
-## GitHub Pagesで公開するときの確認ポイント
-
-- リポジトリ直下に `index.html` があることを確認します。
-- `images/` フォルダがリポジトリに含まれていることを確認します。
-- GitHub の `Settings` → `Pages` で公開ブランチとフォルダを選択します。
-- 公開後のURLで画像・CSS・JavaScriptが読み込まれているか確認します。
-- CTAリンクが本番用のnoteページや商品ページに差し替わっているか確認します。
+   - `images/design-reference.png` が1枚で大きく表示されているか
+   - 画像が上から下まで見切れていないか
+   - 横にはみ出していないか
+   - 下部CTAまで全部表示されるか
+   - 分解画像が表示されていないか
+   - 余計なHTMLテキストが表示されていないか
+   - PCでは中央にスマホ幅で表示されるか
+   - 透明リンク2か所がタップできるか
